@@ -1,11 +1,11 @@
 MEMORY
 {
     DTCMRAM (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
-    RAM_D1  (xrw) : ORIGIN = 0x24000000, LENGTH = 512K
-    RAM_D2  (xrw) : ORIGIN = 0x30000000, LENGTH = 288K
-    RAM_D3  (xrw) : ORIGIN = 0x38000000, LENGTH = 64K
+    AXI_SRAM(xrw) : ORIGIN = 0x24000000, LENGTH = 512K
+    SRAM1_3 (xrw) : ORIGIN = 0x30000000, LENGTH = 288K
+    SRAM4   (xrw) : ORIGIN = 0x38000000, LENGTH = 64K
     ITCMRAM (xrw) : ORIGIN = 0x00000000, LENGTH = 64K
-    FLASH   (rx)  : ORIGIN = 0x8000000,  LENGTH = 128K
+    FLASH   (rx)  : ORIGIN = 0x08000000, LENGTH = 128K
 }
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
 ENTRY(reset_handler)
@@ -32,7 +32,7 @@ SECTIONS
         *(.vfp*)
         *(.v4*)
         *(*.iplt*)
-    } >FLASH
+    } > FLASH
     
 	.rodata : {
         . = ALIGN(4);
@@ -45,7 +45,7 @@ SECTIONS
         *(.data*)
         *(.igot*)
         _data_end  = .;
-	} >RAM_D1 AT> FLASH
+	} >AXI_SRAM AT> FLASH
     _data_load_addr = LOADADDR(.data);
 
 	.bss :{
@@ -55,14 +55,14 @@ SECTIONS
         *(.COMMON*)
         . = ALIGN(4);
 		_bss_end = .;
-	} >RAM_D1
+	} >AXI_SRAM
 
     .stack :
     {
-        . = ALIGN(256);
+        . = ALIGN(4);
         __StackLimit = .;
         *(.stack*)
-        . = . + 0x10000;
+        . = . + 0x20000;
         __StackTop = .;
     } >DTCMRAM
     _stack = __StackTop;

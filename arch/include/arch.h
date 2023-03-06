@@ -30,6 +30,37 @@
 #define CCR_USERSETMPEND    1
 #define CCR_NONBASETHRDENA  0
 
+/* System handler control and state register */
+#define SHCSR_BASE_ADDR     0xE000ED24
+/* UsageFault enable bit, set to 1 to enable */
+#define SHCSR_USGFAULTENA       18
+/* BusFault enable bit, set to 1 to enable */
+#define SHCSR_BUSFAULTENA       17
+/* MemManage enable bit, set to 1 to enable */
+#define SHCSR_MEMFAULTENA       16
+/* SVCall pending bit, reads as 1 if exception is pending */
+#define SHCSR_SVCALLPENDED      15
+/* BusFault exception pending bit, reads as 1 if exception is pending */
+#define SHCSR_BUSFAULTPENDED    14
+/* MemManage exception pending bit, reads as 1 if exception is pending */
+#define SHCSR_MEMFAULTPENDED    13
+/* UsageFault exception pending bit, reads as 1 if exception is pending */
+#define SHCSR_USGFAULTPENDED    12
+/* SysTick exception active bit, reads as 1 if exception is active */
+#define SHCSR_SYSTICKACT        11
+/* PendSV exception active bit, reads as 1 if exception is active */
+#define SHCSR_PENDSVACT         10
+/* Debug monitor active bit, reads as 1 if Debug monitor is active */
+#define SHCSR_MONITORACT        8
+/* SVCall active bit, reads as 1 if SVC call is active */
+#define SHCSR_SVCALLACT         7
+/* UsageFault exception active bit, reads as 1 if exception is active */
+#define SHCSR_USGFAULTACT       3
+/*  BusFault exception active bit, reads as 1 if exception is active */
+#define SHCSR_BUSFAULTACT       1
+/* MemManage exception active bit, reads as 1 if exception is active */
+#define SHCSR_MEMFAULTACT       0
+
 #ifndef ASSEMBLY
 
 #endif /* ASSEMBLY */

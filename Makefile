@@ -37,6 +37,9 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 arch/early_init.c \
+driver/sdrv_gpio.c \
+driver/sdrv_rcc.c \
+interface/led.c \
 app/main.c \
 
 
@@ -101,7 +104,9 @@ AS_INCLUDES = \
 
 # C includes
 C_INCLUDES = \
--Iarch/include
+-Iarch/include \
+-Idriver/include \
+-Iinterface/include
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
